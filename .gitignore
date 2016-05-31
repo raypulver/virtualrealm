@@ -16,3 +16,8 @@ node_modules
 
 # Generated css
 public/styles/*.css
+
+# vim plugins
+.editorconfig
+.tern-config
+.ycm*
