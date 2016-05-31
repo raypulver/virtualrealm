@@ -13,6 +13,7 @@ make
 
 
 ## test
+Tests are built with the application. To run the tests, perform the same steps as above then run `make test`.
 
 ```
 mkdir build
