@@ -2,7 +2,7 @@
 
 A generic streaming server for multiplayer gameplay on mobile phones. Clients connect to a realm instance, then can navigate the surrounding space or deploy their own executable subrealms, which neighboring clients can wander into with their own avatar and join.
 
-Subrealms are packages written in JavaScript which may or may not include external models, textures, or other static assets. An API for the instance of the subrealm on the network, as well as an assortment of models, textures, map tiles, and assorted assets, are all exposed to the scriptable JavaScript environment, which acts as a generic third-person game framework in a familiar language for developers.
+Subrealms are packages written in JavaScript which may or may not include external models, textures, or other static assets. An API for an instance of the subrealm on the network, as well as an assortment of models, textures, map tiles, and assorted assets, are all exposed to the scriptable JavaScript environment, which acts as a generic third-person game framework in a familiar language for developers.
 
 `virtualrealm` is inspired by old-school Warcraft III, where custom maps (most notably DotA) could be deployed on a peer-to-peer network and played in small groups. In `virtualrealm`, subrealms are deployed on a closed, SSL encrypted network, so they can be hosted by anyone (normally NAT would be an issue on mobile networks). A subrealm is fully programmable, and may allow you to play with your global character, a character saved to the subrealm, or a temporary character which exists while you are connected to the subrealm. Regardless, when the client connects, it renders a 3rd person visual experience with similar controls across any subrealm, for Android or iOS.
 
