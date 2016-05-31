@@ -19,5 +19,5 @@ public/styles/*.css
 
 # vim plugins
 .editorconfig
-.tern-config
+.tern-project
 .ycm*
