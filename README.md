@@ -6,7 +6,7 @@ Subrealms are packages written in JavaScript which may or may not include extern
 
 `virtualrealm` is inspired by old-school Warcraft III, where custom maps (most notably DotA) could be deployed on a peer-to-peer network and played in small groups. In `virtualrealm`, subrealms are deployed on a closed, SSL encrypted network, so they can be hosted by anyone (normally NAT would be an issue on mobile networks). A subrealm is fully programmable, and may allow you to play with your global character, a character saved to the subrealm, or a temporary character which exists while you are connected to the subrealm. Regardless, when the client connects, it renders a 3rd person visual experience with similar controls across any subrealm, for Android or iOS.
 
-Tools for compiling subrealm packages will exist that will allow ordinary people, even individuals without any prior programming experience who are possibly younger, to create subrealms to enjoy with their friends in one sitting.
+Tools for compiling subrealm packages will exist that will allow ordinary people, even individuals without any prior programming experience, to create subrealms to enjoy with their friends in one sitting.
 
 Subrealms can naturally contain triggers to display sponsored content to clients. Ad-supported subrealms are expected to form a major constituent of the subrealm ecosystem.
 
