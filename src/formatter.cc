@@ -1,18 +1,26 @@
-#include <boost/config/warning_disable.hpp>
-#include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/spirit/include/phoenix_object.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <boost/fusion/include/io.hpp>
+#include <curses.h>
+#include <term.h>
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include "exception.h"
+#include "formatter.h"
 
-class LogFormatter {
-  static bool has_color;
-  static void Init() {
-    char *term;
-    has_color = false;
-    if (term = getenv("TERM")) {
+LogFormatter::LogFormatter() {
+    int status;
+    used_term = false;
+    if (!setupterm((char *) 0, 1, (int *) 0)) used_term = true;
+    switch ((status = tigetnum("colors"))) {
+      case -2:
+        throw TerminfoException("colors not a numeric capability.");
+        break;
+      case -1:
+        throw TerminfoException("colors field absent from terminfo database");
+        break;
+      default:
+        if (status) has_color = true;
+        std::cout << status << std::endl;
+        break;
+    }
+}
 
