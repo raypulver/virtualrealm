@@ -22,3 +22,6 @@ public/styles/*.css
 .tern-project
 .ycm*
 *.swp
+
+# build directory
+build

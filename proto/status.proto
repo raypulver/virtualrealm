@@ -1,0 +1,4 @@
+syntax = "proto2";
+message Status {
+  required int32 error = 1;
+}

@@ -1,0 +1,6 @@
+syntax = "proto2";
+
+message Header {
+  required int32 fn = 1;
+  required int32 length = 2;
+}
