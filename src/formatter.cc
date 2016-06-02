@@ -19,7 +19,6 @@ LogFormatter::LogFormatter() {
         break;
       default:
         if (status) has_color = true;
-        std::cout << status << std::endl;
         break;
     }
 }
