@@ -1,6 +1,5 @@
 cmake_minimum_required (VERSION 2.8.11)
 enable_testing()
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wno-format -g")
 #set(BOOST_ROOT /usr/local/boost_1_61_0)
 set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)

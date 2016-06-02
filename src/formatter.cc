@@ -12,10 +12,10 @@ LogFormatter::LogFormatter() {
     if (!setupterm((char *) 0, 1, (int *) 0)) used_term = true;
     switch ((status = tigetnum("colors"))) {
       case -2:
-        throw TerminfoException("colors not a numeric capability.");
+        BOOST_THROW_EXCEPTION(TerminfoException("colors not a numeric capability.") << ErrorCodeInfo(TERMINFO_INCAPABLE));
         break;
       case -1:
-        throw TerminfoException("colors field absent from terminfo database");
+        BOOST_THROW_EXCEPTION(TerminfoException("colors field absent from terminfo database") << ErrorCodeInfo(TERMINFO_COLOR_ABSENT));
         break;
       default:
         if (status) has_color = true;

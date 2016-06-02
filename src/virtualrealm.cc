@@ -12,6 +12,7 @@
 #include <thread>
 #include <utility>
 #include "virtualrealm.h"
+#include "logger.h"
 #include "util.h"
 
 namespace ip = boost::asio::ip;

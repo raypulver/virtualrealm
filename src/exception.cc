@@ -1,10 +1,11 @@
+#include "exception.h"
+#include <boost/cstdint.hpp>
 #include <boost/exception/all.hpp>
 #include <cstdio>
-#include "exception.h"
-Exception::Exception() {
-  Zero();
-  snprintf(message, sizeof(message), format);
-}
+#include <cstring>
+
+Exception::Exception(std::string msg) : message(msg) {}
+
 const char *Exception::what() const noexcept {
-  return const_cast<const char *>(message);
+  return message.c_str();
 }
