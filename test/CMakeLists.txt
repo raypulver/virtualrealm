@@ -1,0 +1,8 @@
+file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_LIST_DIR} *.cc)
+foreach(testSrc ${TEST_SRCS})
+  get_filename_component(testName ${testSrc} NAME_WE)
+  add_executable(${testName} ${testSrc} $<TARGET_OBJECTS:virtualcore> $<TARGET_OBJECTS:virtualproto>)
+  target_link_libraries(${testName} ${Boost_LIBRARIES} ${CURSES_LIBRARIES} ${PROTOBUF_LIBRARIES})
+  set_target_properties(${testName} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/test)
+  add_test(NAME ${testName} WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/test COMMAND ${PROJECT_BINARY_DIR}/test/${testName})
+endforeach(testSrc)
