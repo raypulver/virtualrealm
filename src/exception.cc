@@ -1,8 +1,8 @@
-#include "exception.h"
 #include <boost/cstdint.hpp>
 #include <boost/exception/all.hpp>
 #include <cstdio>
 #include <cstring>
+#include "exception.h"
 
 Exception::Exception(std::string msg) : message(msg) {}
 

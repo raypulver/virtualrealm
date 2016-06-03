@@ -5,6 +5,8 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/format.hpp>
+#include <boost/log/trivial.hpp>
 #include <cstdlib>
 #include <cstdio>
 #include <iostream>
@@ -77,9 +79,14 @@ void SessionPool::GenerateAndAccept() {
       Session::Init(uuid, self);
 
   sessions_[uuid] = session;
-  acceptor_->async_accept(session->GetSocket(),
-                         [this, self, uuid](const boost::system::error_code &err) {
-                           if (err) sessions_.erase(uuid);
+  ip::tcp::socket &sock (session->GetSocket());
+  acceptor_->async_accept(sock,
+                         [this, self, &uuid, &sock](const boost::system::error_code &err) {
+                           if (err) {
+                             sessions_.erase(uuid);
+                             BOOST_LOG_TRIVIAL(error) << (boost::format("Error accepting connection for session %1% (code %2%)") % uuid % err);
+                           }
+                           BOOST_LOG_TRIVIAL(info) << (boost::format("Connection accepted (uuid %1%)") % uuid);
                            self->GenerateAndAccept();
                          });
 }
