@@ -76,27 +76,28 @@ void SessionPool::GenerateAndAccept() {
   auto self = shared_from_this();
   std::string uuid = GenerateUUID();
   Session::Ptr session =
-      Session::Init(uuid, self);
+      Session::Init(uuid, this);
 
   sessions_[uuid] = session;
-  ip::tcp::socket &sock (session->GetSocket());
-  acceptor_->async_accept(sock,
-                         [this, self, &uuid, &sock](const boost::system::error_code &err) {
+  acceptor_->async_accept(session->GetSocket(),
+                         [this, self, session](const boost::system::error_code &err) {
                            if (err) {
-                             sessions_.erase(uuid);
-                             BOOST_LOG_TRIVIAL(error) << (boost::format("Error accepting connection for session %1% (code %2%)") % uuid % err);
+                             sessions_.erase(session->GetUUID());
+                             BOOST_LOG_TRIVIAL(error) << (boost::format("\nError accepting connection for session %1% (code %2%)") % session->GetUUID() % err);
                            }
-                           BOOST_LOG_TRIVIAL(info) << (boost::format("Connection accepted (uuid %1%)") % uuid);
+                           BOOST_LOG_TRIVIAL(info) << (boost::format("\nConnection accepted\nUUID %1%\nIP %2%") % session->GetUUID() % session->GetSocket().remote_endpoint());
                            self->GenerateAndAccept();
                          });
 }
 
-Session::Session(std::string &uuid, SessionPool::Ptr sp)
+Session::Session(std::string &uuid, SessionPool::WeakPtr sp)
     : sp_(sp), uuid_(uuid), socket_(*sp->io_service_) {}
 
 Session::Ptr Session::Init(std::string &uuid,
-                           SessionPool::Ptr sp) {
+                           SessionPool::WeakPtr sp) {
   return Ptr(new Session(uuid, sp));
 }
+
+std::string &Session::GetUUID() { return uuid_; }
 
 ip::tcp::socket &Session::GetSocket() { return socket_; }

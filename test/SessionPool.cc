@@ -19,15 +19,6 @@ BOOST_AUTO_TEST_CASE(UUID) {
   BOOST_CHECK_EQUAL(count, 1);
 }
 
-BOOST_AUTO_TEST_CASE(GenerateAndAccept) {
-  boost::asio::io_service io;
-  boost::asio::ip::tcp::acceptor acceptor(io);
-  SessionPool::Ptr sp = SessionPool::Init(VirtualRealm::AcceptorPtr(&acceptor), VirtualRealm::IOPtr(&io));
-  sp->GenerateAndAccept();
-  io.run_one();
-  BOOST_CHECK_EQUAL(1, 1);
-}
-
 BOOST_AUTO_TEST_CASE(PollOne) {
   VirtualRealm::Ptr vr = VirtualRealm::Init(50000);
   vr->PollOne();

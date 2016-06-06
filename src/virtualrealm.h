@@ -33,17 +33,18 @@ class VirtualRealm : public std::enable_shared_from_this<VirtualRealm> {
 class Session : public std::enable_shared_from_this<Session> {
   enum { MAX_LENGTH = 0x400 };
   typedef std::shared_ptr<SessionPool> SessionPoolPtr;
+  typedef SessionPool* SessionPoolWeakPtr;
   boost::uint8_t buffer_[MAX_LENGTH];
   boost::asio::ip::tcp::socket socket_;
   std::string uuid_;
-  SessionPoolPtr sp_; 
+  SessionPoolWeakPtr sp_; 
 
  public:
   std::string& GetUUID();
   typedef std::shared_ptr<Session> Ptr;
-  static Ptr Init(std::string &uuid, SessionPoolPtr sp);
+  static Ptr Init(std::string &uuid, SessionPoolWeakPtr sp);
   boost::asio::ip::tcp::socket &GetSocket();
-  Session(std::string &uuid, SessionPoolPtr sp);
+  Session(std::string &uuid, SessionPoolWeakPtr sp);
 };
 
 class SessionPool : public std::enable_shared_from_this<SessionPool> {
@@ -51,6 +52,7 @@ class SessionPool : public std::enable_shared_from_this<SessionPool> {
   VirtualRealm::AcceptorPtr acceptor_;
 
  public:
+  typedef SessionPool* WeakPtr;
   static std::string GenerateUUID();
   typedef boost::uuids::basic_random_generator<boost::mt19937> Generator;
   VirtualRealm::IOPtr io_service_;
