@@ -1,7 +1,10 @@
 syntax = "proto2";
 
+package virtualproto;
+
 import "status.proto";
 import "auth.proto";
+
 
 message ServerBroadcastQuery {
   required Auth auth = 1;
@@ -10,6 +13,10 @@ message ServerBroadcastQuery {
 
 message ServerBroadcastResult {
   required Status status = 1;
+}
+
+service ServerBroadcastService {
+  rpc ServerBroadcast(ServerBroadcastQuery) returns(ServerBroadcastResult);
 }
 
 message ServerWhisperQuery {
@@ -22,6 +29,10 @@ message ServerWhisperResult {
   required Status status = 1;
 }
 
+service ServerWhisperService {
+  rpc ServerWhisper(ServerWhisperQuery) returns(ServerWhisperResult);
+}
+
 message ClientSendQuery {
   required Auth auth = 1;
   required bool is_whisper = 2;
@@ -32,3 +43,6 @@ message ClientSendQuery {
 message ClientSendResult {
   required Status status = 1;
 }
+
+service ClientSendService {
+  rpc ClientSend

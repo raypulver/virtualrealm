@@ -1,6 +1,8 @@
 syntax = "proto2";
 import "status.proto";
 
+package virtualproto;
+
 message ServerLoginQuery {
   required string username = 1;
   required string password = 2;

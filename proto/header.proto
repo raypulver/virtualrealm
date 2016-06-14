@@ -1,5 +1,7 @@
 syntax = "proto2";
 
+package virtualproto;
+
 message Header {
   required int32 fn = 1;
   required int32 length = 2;
